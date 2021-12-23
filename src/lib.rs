@@ -60,10 +60,18 @@
 //! More at [OwnYouBits](https://ownyourbits.com)
 //!
 
+use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::collections::hash_map::DefaultHasher;
 
 pub struct DictEntry<T> { hash : u64, pub key : String, pub val : T }
+
+impl<T> fmt::Debug for DictEntry<T>
+where T: fmt::Debug {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{{\"{}\": {:?}}}", self.key, self.val)
+    }
+}
 
 pub type Dict<T> = Vec<DictEntry<T>>;
 
